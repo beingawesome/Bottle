@@ -13,8 +13,8 @@ namespace Bottle.Internal
             Services = services;
         }
 
-        public Message Message { get; }
-        public IMetadata Metadata { get; }
+        public Message Message { get; } 
+        public IMetadata Metadata { get; } = new DynamicMetadata();
         public IServiceProvider Services { get; }
     }
 }

@@ -1,0 +1,38 @@
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Bottle.Metadata
+{
+    internal class DynamicMetadata : Dictionary<string, JObject>, IMetadata
+    {
+        public IMetadata Clone()
+        {
+            var clone = new DynamicMetadata();
+
+            foreach (var item in this)
+            {
+                clone.Add(item.Key, item.Value);
+            }
+
+            return clone;
+        }
+
+        public TMetadata Get<TMetadata>()
+        {
+            var key = typeof(TMetadata).Name;
+
+            return TryGetValue(key, out var value)
+                        ? value.ToObject<TMetadata>()
+                        : default;
+        }
+
+        public void Set<TMetadata>(TMetadata feature)
+        {
+            var key = typeof(TMetadata).Name;
+
+            this[key] = JObject.FromObject(feature);
+        }
+    }
+}
