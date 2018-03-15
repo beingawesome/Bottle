@@ -6,6 +6,7 @@ namespace Bottle.Metadata
 {
     public interface IReadOnlyMetadata
     {
+        TMetadata GetRequired<TMetadata>();
         TMetadata Get<TMetadata>();
     }
 }

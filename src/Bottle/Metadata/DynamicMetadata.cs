@@ -28,6 +28,15 @@ namespace Bottle.Metadata
                         : default;
         }
 
+        public TMetadata GetRequired<TMetadata>()
+        {
+            var key = typeof(TMetadata).Name;
+
+            return TryGetValue(key, out var value)
+                        ? value.ToObject<TMetadata>()
+                        : throw new MetadataNotFound(typeof(TMetadata));
+        }
+
         public void Set<TMetadata>(TMetadata feature)
         {
             var key = typeof(TMetadata).Name;
