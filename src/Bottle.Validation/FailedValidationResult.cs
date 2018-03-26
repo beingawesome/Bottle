@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Bottle.Validation
 {
@@ -19,10 +20,18 @@ namespace Bottle.Validation
         {
             foreach (var error in Errors)
             {
-                foreach (var member in error.MemberNames)
+                if(error.MemberNames.Any())
                 {
-                    container.Errors.Add(member, new Error(error.ErrorMessage));
+                    foreach (var member in error.MemberNames)
+                    {
+                        container.Errors.Add(member, new Error(error.ErrorMessage));
+                    }
                 }
+                else
+                {
+                    container.Errors.Add(String.Empty, new Error(error.ErrorMessage));
+                }
+
             }
             
             return container;

@@ -21,7 +21,9 @@ namespace Bottle.Validation
                     var validation = new ValidationContext(context.Message, context.Services, null);
                     var errors = new List<ValidationResult>();
 
-                    if (!Validator.TryValidateObject(context.Message, validation, errors, true)) return new FailedValidationResult(errors);
+                    Validator.TryValidateObject(context.Message, validation, errors, true);
+
+                    if(errors.Count > 0) return new FailedValidationResult(errors);
 
                     return await next(context).ConfigureAwait(false);
                 }
