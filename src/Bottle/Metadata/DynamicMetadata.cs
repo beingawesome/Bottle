@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Bottle.Metadata
 {
-    internal class DynamicMetadata : Dictionary<string, JObject>, IMetadata
+    internal class DynamicMetadata : Dictionary<string, JToken>, IMetadata
     {
         public IMetadata Clone()
         {
@@ -41,7 +41,7 @@ namespace Bottle.Metadata
         {
             var key = typeof(TMetadata).Name;
 
-            this[key] = JObject.FromObject(feature);
+            this[key] = JToken.FromObject(feature);
         }
     }
 }
